@@ -1,0 +1,70 @@
+{
+  "name": "codex-hud",
+  "displayName": "Codex HUD",
+  "description": "Live Codex context and account usage bars in the VS Code status bar.",
+  "version": "0.1.0",
+  "publisher": "rohansingh",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RohanSi4/codex-hud-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RohanSi4/codex-hud-vscode/issues"
+  },
+  "homepage": "https://github.com/RohanSi4/codex-hud-vscode#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "codex",
+    "context",
+    "usage",
+    "hud"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:codexHud.showDetails",
+    "onCommand:codexHud.refresh"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codexHud.showDetails",
+        "title": "Codex HUD: Show Details"
+      },
+      {
+        "command": "codexHud.refresh",
+        "title": "Codex HUD: Refresh"
+      }
+    ],
+    "configuration": {
+      "title": "Codex HUD",
+      "properties": {
+        "codexHud.barWidth": {
+          "type": "integer",
+          "default": 10,
+          "minimum": 5,
+          "maximum": 20,
+          "description": "Number of characters in each status bar meter."
+        },
+        "codexHud.refreshIntervalMs": {
+          "type": "integer",
+          "default": 2000,
+          "minimum": 1000,
+          "maximum": 30000,
+          "description": "How often Codex session data is refreshed."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "check": "node --check src/core.js && node --check src/extension.js",
+    "test": "node --test",
+    "package": "npx @vscode/vsce package"
+  }
+}

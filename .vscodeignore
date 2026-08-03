@@ -1,0 +1,7 @@
+.git/**
+.github/**
+test/**
+*.vsix
+.gitignore
+CONTRIBUTING.md
+assets/*.svg
