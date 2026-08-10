@@ -21,7 +21,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
+      # Nothing ships in the VSIX but src/ and assets/ — `dependencies` is empty —
+      # so this is the only audit that can reach a user, and it stays blocking. It
+      # starts guarding for real the day a runtime dependency is added.
+      - run: npm audit --omit=dev --audit-level=high
+      # The dev tree is @vscode/vsce and ~240 transitive packages, none of them
+      # bundled. An advisory in a packaging tool is worth seeing, not worth a red
+      # main that blocks shipping a fix for something else.
       - run: npm audit --audit-level=high
+        continue-on-error: true
       - run: npm run check
       - run: npm test
       - name: Verify VSIX packaging
